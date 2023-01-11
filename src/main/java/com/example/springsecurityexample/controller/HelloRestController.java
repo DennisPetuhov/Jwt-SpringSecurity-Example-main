@@ -12,18 +12,18 @@ import org.springframework.web.bind.annotation.RestController;
 //@SecurityRequirement(name = "javainuseapi")
 
 @RestController
-@RequestMapping("hello")
+@RequestMapping("/hello")
 
 public class HelloRestController {
     @Operation(summary = "My endpoint", security = @SecurityRequirement(name = "bearerAuth"))
 
-    @GetMapping("user")
+    @GetMapping("/user")
     public String helloUser() {
         return "Hello User";
     }
 
     @Operation(summary = "My endpoint", security = @SecurityRequirement(name = "bearerAuth"))
-    @GetMapping("admin")
+    @GetMapping("/admin")
     public String helloAdmin() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication(); // те ли за кого выдаем себя(прошли -идем дальше)
 
