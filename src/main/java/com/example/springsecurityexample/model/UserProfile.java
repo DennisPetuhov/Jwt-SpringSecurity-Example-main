@@ -3,7 +3,9 @@ package com.example.springsecurityexample.model;
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by rajeevkumarsingh on 20/11/17.
@@ -50,19 +52,20 @@ public class UserProfile implements Serializable {
     private String zipCode;
 
     @OneToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "user_id", nullable = false)
+//    @JoinColumn(name = "user_id", nullable = false)
+    @MapsId
     private User user;
 
-  // @OneToMany(mappedBy = "userProfile")//
-  // private List<Post> post;
+   @OneToMany(mappedBy = "userProfile")//
+   private List<Post> post = new ArrayList<Post>();
 
-  //public List<Post> getPost() {
-  //    return post;
-  //}
+  public List<Post> getPost() {
+      return post;
+  }
 
-  //public void setPost(List<Post> post) {
-  //    this.post = post;
-  //}
+  public void setPost(List<Post> post) {
+      this.post = post;
+  }
 
     public UserProfile() {
 

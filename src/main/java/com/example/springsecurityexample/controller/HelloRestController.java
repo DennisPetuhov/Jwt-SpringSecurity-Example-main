@@ -1,7 +1,12 @@
 package com.example.springsecurityexample.controller;
 
+import com.example.springsecurityexample.model.User;
+import com.example.springsecurityexample.model.UserProfile;
+import com.example.springsecurityexample.repository.UserProfileRepository;
+import com.example.springsecurityexample.repository.UserRepository;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,6 +20,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/hello")
 
 public class HelloRestController {
+    @Autowired
+    UserProfileRepository userProfileRepository;
+    @Autowired
+    UserRepository userRepository;
     @Operation(summary = "My endpoint", security = @SecurityRequirement(name = "bearerAuth"))
 
     @GetMapping("/user")
@@ -29,7 +38,10 @@ public class HelloRestController {
 
         UserDetails userPrincipal = (UserDetails)authentication.getPrincipal();
         System.out.println("User principal name =" + userPrincipal.getUsername());
-        return "Hello Admin " + userPrincipal.getUsername();
+        User user = userRepository.findByUsername(userPrincipal.getUsername()).get();
+        UserProfile userProfile=userProfileRepository.findUserProfileByUser(user);
+        return "Hello Admin " + userProfile;
     }
+
 
 }

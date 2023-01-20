@@ -1,5 +1,6 @@
 package com.example.springsecurityexample.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
 
 import javax.persistence.*;
@@ -27,7 +28,7 @@ public class Post {
 
     @NotNull
     private String content;
-
+    @JsonIgnore
     @ManyToOne // один обьект поля ниже, будет содержать множество постов
     @JoinColumn(name = "user_profile_id")
     private UserProfile userProfile;
@@ -38,8 +39,8 @@ public class Post {
                     CascadeType.MERGE
             })
     @JoinTable(name = "post_tags",
-            joinColumns = { @JoinColumn(name = "post_id") },
-            inverseJoinColumns = { @JoinColumn(name = "tag_id") })
+            joinColumns = {@JoinColumn(name = "post_id")},
+            inverseJoinColumns = {@JoinColumn(name = "tag_id")})
     private Set<Tag> tags = new HashSet<>();
 
 

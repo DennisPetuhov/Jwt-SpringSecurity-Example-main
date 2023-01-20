@@ -8,6 +8,11 @@ public class LoginForm {
     @Size(min=3, max = 60)
     private String username;
 
+    @Override
+    public String toString() {
+        return super.toString();
+    }
+
     @NotBlank
     @Size(min = 6, max = 40)
     private String password;

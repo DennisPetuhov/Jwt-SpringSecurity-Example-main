@@ -44,10 +44,10 @@ public class User{
     @Size(min=6, max = 100)
     private String password;
     @JsonIgnore
-    @OneToOne(fetch = FetchType.LAZY,
-            cascade =  CascadeType.ALL,
-            mappedBy = "user")
-    private UserProfile userProfile;
+//    @OneToOne(fetch = FetchType.LAZY,
+//            cascade =  CascadeType.ALL,
+//            mappedBy = "user")
+//    private UserProfile userProfile;
 
     @ManyToMany(fetch = FetchType.LAZY)//
     @JoinTable(name = "user_roles", // создаем таблицу для связи user_roles
@@ -112,11 +112,11 @@ public class User{
         this.roles = roles;
     }
 
-    public UserProfile getUserProfile() {
-        return userProfile;
-    }
+//    public UserProfile getUserProfile() {
+//        return userProfile;
+//    }
 
-    public void setUserProfile(UserProfile userProfile) {
-        this.userProfile = userProfile;
-    }
+//    public void setUserProfile(UserProfile userProfile) {
+//        this.userProfile = userProfile;
+//    }
 }

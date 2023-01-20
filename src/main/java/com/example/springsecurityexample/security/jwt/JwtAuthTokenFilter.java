@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class JwtAuthTokenFilter extends OncePerRequestFilter {
+    // проверяет токен используя  JwtProvider
 
     @Autowired
     private JwtProvider tokenProvider; // обьект который создает/проверяет токен
