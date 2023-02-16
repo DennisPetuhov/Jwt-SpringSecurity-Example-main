@@ -24,20 +24,34 @@ public class PostController {
     @Autowired
     UserProfileRepository userProfileRepository;
 
-    @PostMapping()
+//    @PostMapping()
+//    public Post createPost(@RequestBody Post post) {
+//        post.setUserProfile(getUserProfile());
+//        return postRepository.save(post);
+//    }
+
+    @PostMapping("/create")
     public Post createPost(@RequestBody Post post) {
+//        UserProfile userProfile = userProfileRepository.findById(userid).get();
+//        post.setUserProfile(userProfile);
+System.out.println(post.toString()+"????");
         post.setUserProfile(getUserProfile());
+        System.out.println("***"+post.getDescription());
         return postRepository.save(post);
     }
+
     @GetMapping()
-    public List<Post> getAllPosts(){
+    public List<Post> getAllPosts() {
         return postRepository.findAll();
     }
+
     @GetMapping("/byuserprofile")
-    public List<Post> getPostByUserProfile(){
-        UserProfile userProfile= getUserProfile();
-       return postRepository.findListByUserProfile(userProfile);
+    public List<Post> getPostByUserProfile() {
+        UserProfile userProfile = getUserProfile();
+        return postRepository.findListByUserProfile(userProfile);
     }
+
+    @PostMapping("/")
 
     private UserProfile getUserProfile() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication(); // те ли за кого выдаем себя(прошли -идем дальше)
@@ -48,4 +62,5 @@ public class PostController {
         UserProfile userProfile = userProfileRepository.findUserProfileByUser(user);
         return userProfile;
     }
+
 }

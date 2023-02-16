@@ -2,12 +2,6 @@ package com.example.springsecurityexample.controller;
 
 import com.example.springsecurityexample.Service.FileStorageService;
 import com.example.springsecurityexample.message.response.UploadFileResponse;
-import com.example.springsecurityexample.model.User;
-import com.example.springsecurityexample.model.UserProfile;
-import com.example.springsecurityexample.repository.UserProfileRepository;
-import com.example.springsecurityexample.repository.UserRepository;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,39 +9,28 @@ import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-//@SecurityRequirement(name = "javainuseapi")
-
 @RestController
-@RequestMapping("/hello")
+@RequestMapping("/api")
+public class FileController {
 
-public class HelloRestController {
-    @Autowired
-    UserProfileRepository userProfileRepository;
-    @Autowired
-    UserRepository userRepository;
-//    @Operation(summary = "My endpoint", security = @SecurityRequirement(name = "bearerAuth"))
-
-
-//    ?????????????????????????????
     private static final Logger logger = LoggerFactory.getLogger(FileController.class);
 
-
+    @Autowired
+    private FileStorageService fileStorageService;
+    
     @PostMapping("/uploadFile")
     public UploadFileResponse uploadFile(@RequestParam("file") MultipartFile file) {
         String fileName = fileStorageService.storeFile(file);
+        System.out.println(fileName.toString());
 
         String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path("/downloadFile/")
@@ -89,30 +72,4 @@ public class HelloRestController {
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
                 .body(resource);
     }
-
-//    ????????????????//
-
-    @Autowired
-    private FileStorageService fileStorageService;
-
-
-
-    @GetMapping("/user")
-    public String helloUser() {
-        return "Hello User";
-    }
-
-    @Operation(summary = "My endpoint", security = @SecurityRequirement(name = "bearerAuth"))
-    @GetMapping("/admin")
-    public String helloAdmin() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication(); // те ли за кого выдаем себя(прошли -идем дальше)
-
-        UserDetails userPrincipal = (UserDetails)authentication.getPrincipal();
-        System.out.println("User principal name =" + userPrincipal.getUsername());
-        User user = userRepository.findByUsername(userPrincipal.getUsername()).get();
-        UserProfile userProfile=userProfileRepository.findUserProfileByUser(user);
-        return "Hello  " + userProfile.getUser().getUsername();
-    }
-
-
 }

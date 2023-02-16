@@ -89,6 +89,9 @@ private static final String[] AUTH_WHITELIST = {
                 authorizeRequests()// авторизировать все запросы!
                 .antMatchers("/api/auth/**").permitAll() // по этому адресу пускать всех
                 .antMatchers(    "/authenticate",
+                        "/api/uploadfile",
+                        "/api/uploadmultiplefiles",
+                        "/api/downloadfile/**",
                         "/swagger-resources/**",
                         "/swagger-ui/**",
                         "/v3/api-docs/**",

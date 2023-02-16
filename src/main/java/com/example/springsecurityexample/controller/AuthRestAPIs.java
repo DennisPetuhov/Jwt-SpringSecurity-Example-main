@@ -52,7 +52,7 @@ public class AuthRestAPIs {
     // прокомментировать/ уметь работать в Postman todo
     @PostMapping("/signin") //  АУТЕНТИФИКАЦИЯ метод post по Урл адресу
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginForm loginRequest) { //запрос в оболочке с валидными полями тела
-        System.out.println(loginRequest.getUsername() + " " + loginRequest.getPassword());
+        System.out.println(loginRequest.getUsername() + "!!!" + loginRequest.getPassword());
         Authentication authentication = authenticationManager.authenticate( //
                 new UsernamePasswordAuthenticationToken(
 

@@ -43,6 +43,10 @@ public class Post {
             inverseJoinColumns = {@JoinColumn(name = "tag_id")})
     private Set<Tag> tags = new HashSet<>();
 
+    @Override
+    public String toString() {
+        return  (this.content +" "+this.title+" "+this.description );
+    }
 
     public UserProfile getUserProfile() {
         return userProfile;

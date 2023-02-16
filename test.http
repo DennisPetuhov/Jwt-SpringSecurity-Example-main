@@ -1,0 +1,31 @@
+POST http://localhost:8082/hello/uploadfile
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJib2IxMjMiLCJpYXQiOjE2NzQ1NDU4NzMsImV4cCI6MTY3NDYzMjI3M30.-PYOiOLxiQq6EhCViYM7gDqBGvV0n-y5bYqY-6eO_tKIi2pJ1gvCSkUTT_RI-rH2Ee61rzocEejS8wzP9iIRDg
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="file"; filename="1.txt"
+
+
+###
+POST http://localhost:8082/api/auth/signin
+Content-type: application/json
+
+{
+  "username": "bob123",
+  "password": "12345678"
+}
+
+###
+GET http://localhost:8082/api/post
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJib2IxMjMiLCJpYXQiOjE2NzYyOTM2MzIsImV4cCI6MTY3NjM4MDAzMn0.VqkpLSmUVJ1Y2CxbAHDpzhIFf6AzIhEyY0RrVHtZkB9E_HM7vQ8zbis5ZGumYpNdTgy2hTX46unk-JQBLtEJvg
+
+
+POST http://localhost:8082/api/post/create
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJib2IxMjMiLCJpYXQiOjE2NzYyNjg1MjgsImV4cCI6MTY3NjM1NDkyOH0.DNwsQfEc9kb-OCIWifhkRZSX9f-Jhz5ZEdIW8Mf2UiToZ4ucpE6Q9MqsRuHNqf-lFBC3XGaYvDv5nRvFBwuTng
+
+{
+  "title": "TitledO1w15",
+  "description": "FIdRST TwITLEO",
+  "cotent": "the CondtwetntO"
+}
